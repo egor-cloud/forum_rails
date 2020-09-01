@@ -1,0 +1,27 @@
+<nav class="head_navbar navbar navbar-expand-lg row" >
+
+  <div class="col-3">
+    <h3><%= image_tag("ruby-clip-art-20.png", width: "36", height: "36", alt: "Ruby logo") %>
+      <u>Forum Ruby developers</u></h3>
+  </div>
+
+   <div class="collapse navbar-collapse col-9 justify-content-end" id="navbarNavDropdown" >
+     <ul class="navbar-nav">
+       <li class="nav-item active">
+         <a class="nav-link" href="<%= root_path %>">Home <%= image_tag('home (1).png', width: "24", height: "24") %>
+           <span
+           class="sr-only">(current)</span></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="#">Rules <%= image_tag('text-box.png', width: "24", height: "24") %></a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="#" >Log in <%= image_tag('account-search.png', width: "24", height: "24") %></a>
+       </li>
+       <li class="nav-item" >
+         <a class="nav-link" href="<%= new_user_path %>">Sign up <%= image_tag('account-plus.png', width: "24", height: "24")
+         %></a>
+       </li>
+     </ul>
+   </div>
+ </nav>

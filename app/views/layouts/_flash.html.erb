@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-12">
+    <% flash.each do |key, val| %>
+      <div class="alert alert-<%= key %>" style="margin-top: 100px"><%= val %></div>
+    <% end %>
+  </div>
+</div>
