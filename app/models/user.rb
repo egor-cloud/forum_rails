@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  #Создание виртуального атрибута
+  attr_accessor :remember_token
 
   valid_email = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   before_save do
@@ -14,4 +16,31 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, length: {minimum: 9}, presence: true
   validates :password_confirmation, length: {minimum: 9}, presence: true
+
+  def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ?
+             BCrypt::Engine::MIN_COST :
+             BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+  def User.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  #Запомнить пользователя в базе создав виртуальную рандомную строку а затем записать ее дайджест в базу
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remember_token))
+  end
+
+  # Возвращает true, если указанный токен соответствует дайджесту.
+  def authenticated?(remember_token)
+    return false if self.remember_digest.nil?
+    BCrypt::Password.new(self.remember_digest).is_password?(remember_token)
+  end
+
+  def forget
+    update_attribute(:remember_digest, nil)
+  end
 end

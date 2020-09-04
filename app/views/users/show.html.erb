@@ -1,4 +1,11 @@
 <h1>User#show</h1>
 <p>Find me in app/views/user/show.html.erb</p>
-<%= @user.login %>
-<%= @user.email %>
+<p>Login: <%= @user.login %></p>
+<p>Email: <%= @user.email %></p>
+<div>
+<p>Avatar: </p><img src="<%= @user.avatar %>" alt="your avatar" class="rounded-circle" style="width: 300px; height:
+    300px">
+</div>
+<p>Rating: ...</p>
+<p>My Topics: ...</p>
+

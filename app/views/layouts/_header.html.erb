@@ -15,13 +15,45 @@
        <li class="nav-item">
          <a class="nav-link" href="#">Rules <%= image_tag('text-box.png', width: "24", height: "24") %></a>
        </li>
-       <li class="nav-item">
-         <a class="nav-link" href="#" >Log in <%= image_tag('account-search.png', width: "24", height: "24") %></a>
-       </li>
        <li class="nav-item" >
-         <a class="nav-link" href="<%= new_user_path %>">Sign up <%= image_tag('account-plus.png', width: "24", height: "24")
+         <a class="nav-link" href="#">Topics <%= image_tag('baseline_wysiwyg_black_48dp.png', width: "24", height:
+             "24")
          %></a>
        </li>
+       <% if logged_in? %>
+         <li class="dropdown nav-item">
+           <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Account <%= image_tag('account.png', width: "24", height: "24")
+           %></a>
+           <ul class="dropdown-menu dropdown-menu-right" style="text-align: right;">
+             <li><a href="<%= current_user %>" class="dropdown-item">Profile<%= image_tag('account-edit.png', width:
+                 "24",
+                                                                                height:
+                 "24"
+                                                             ) %></a></li>
+             <li><a href="#" class="dropdown-item">My topics<%= image_tag('text-box.png', width: "24", height: "24") %></a></li>
+             <div class="dropdown-divider"></div>
+             <li>
+               <%= link_to logout_path, method: "delete", class: "dropdown-item" do %>Log out
+                 <%= image_tag "account-cancel (1).png", width: "24", height: "24" %>
+               <% end %>
+             </li>
+           </ul>
+         </li>
+       <% else %>
+         <li class="nav-item">
+           <a class="nav-link" href="<%= login_path %>">Log in <%= image_tag('account-search.png', width: "24", height: "24")
+           %></a>
+         </li>
+         <li class="nav-item" >
+           <a class="nav-link" href="<%= new_user_path %>">Sign up <%= image_tag('account-plus.png', width: "24", height: "24")
+           %></a>
+         </li>
+       <% end %>
      </ul>
    </div>
  </nav>
+
+
+
+
+

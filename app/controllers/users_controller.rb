@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def new
@@ -13,7 +13,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "You have successfully registered welcome to the forum #{@user.login}"
+      log_in @user
+      remember(user)
+      flash.now[:success] = "You have successfully registered welcome to the forum #{@user.login}"
       redirect_to user_path(@user)
     else
       render :new

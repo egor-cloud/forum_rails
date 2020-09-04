@@ -6,6 +6,7 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -22,7 +23,7 @@
       <%= yield %>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="margin-top: 100px">
       <%= render "layouts/footer" %>
   </div>
   </body>

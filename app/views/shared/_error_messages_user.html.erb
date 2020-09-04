@@ -3,8 +3,8 @@
     <div class="alert alert-danger">
       The form contains <%= pluralize(@user.errors.count, "error") %>
     </div>
-    <!--      Кроме того, после неудачной попытки отправить форму Rails автоматически-->
-    <!--      помещает поля с ошибками в элементы div с CSS-классом field_with_errors-->
+    <!--Кроме того, после неудачной попытки отправить форму Rails автоматически-->
+    <!--помещает поля с ошибками в элементы div с CSS-классом field_with_errors-->
     <ul>
       <% @user.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>

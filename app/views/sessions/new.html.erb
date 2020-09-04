@@ -1,0 +1,43 @@
+<h1 style="margin-top: 100px">Log in</h1>
+<div class="row">
+  <div class="col-6">
+    <%= form_for :session, url: login_path, data_remote: false do |f| %>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>Remember me on this computer</span>
+      <% end %>
+
+      <br>
+
+      <%= f.submit "login", class: "btn btn-primary" %>
+      <span><%= link_to 'forgot your password ?', "#" %></span>
+    <% end %>
+    <br>
+    <p>New user? <%= link_to "Sign up now!", new_user_path %></p>
+  </div>
+
+  <div class="col-4">
+      <h3 style="text-align: center">Log in via social network:</h3>
+      <div class="row justify-content-center">
+        <div class="col text-center">
+          Facebook: <%= link_to image_tag("5cd48fc5ad951.png", width: "48", height: "48"), "https://www.facebook
+          .com" %>
+        </div>
+        <div class="col text-center">
+          VK: <%= link_to image_tag("vk_com_logo_svg_768x768.png", width: "48", height: "48"), "https://vk.com" %>
+        </div>
+      </div>
+  </div>
+</div>
+
