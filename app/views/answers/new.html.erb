@@ -1,0 +1,20 @@
+<h1 style="margin-top: 100px">Create answer</h1>
+<div class="row">
+  <div class="col-12">
+    <%= form_for @answer, url: category_post_answers_path, multipart: true, data_remote: false do |f| %>
+
+      <div class="form-group">
+        <p>
+          <%= image_tag "exclamation_mark_PNG37.png", height: "24px", width: "24px" %>
+          Pls try to describe your question without inserting a picture
+        </p>
+        <%= f.label :body %>
+        <%#= f.text_area :body, class: "form-control", style: "min-height: 400px; height: auto" %>
+        <%= f.rich_text_area :body, class: "form-control", style: "min-height: 300px; height: auto" %>
+      </div>
+
+      <%= f.submit "create answer", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>

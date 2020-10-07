@@ -1,0 +1,8 @@
+<h1>Sample App</h1>
+<p>Hello <%= @user.login %></p>
+<p>
+  Welcome to the Forum Ruby developers, to activate your account follow the link:
+</p>
+<%# binding.pry %>
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token,
+                                                    email: @user.email) %>

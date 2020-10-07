@@ -1,0 +1,16 @@
+<ul style="margin-left: 30px; margin-top: 20px">
+<% category.each do |parent, children| %>
+    <%= link_to category_path(parent.id), style: "text-decoration: none" do %>
+      <li style="margin-top: 20px">
+        <% with_block ||= 360 %>
+        <%= content_tag :div, style: "width: #{with_block}px;", class: "category text-center card #{'characters' if children
+            .present?}" do%>
+          <%= image_tag "#{parent.avatar}", class: "img-thumbnail" %>
+            <p class="card-text"><%= parent.name %></p>
+      <% end %>
+        <% with_block = with_block - 40 if children.present? %>
+        <%= render "shared/category_children", {category: children, with_block: with_block} if children.present? %>
+    </li>
+    <% end %>
+<% end %>
+</ul>

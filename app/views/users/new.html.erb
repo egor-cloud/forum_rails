@@ -6,34 +6,39 @@
 
         <div class="form-group">
           <%= f.label :login %>
-          <%= f.text_field :login, class: "form-control" %>
+          <%= f.text_field :login, class: "form-control #{'is-invalid' if @user.errors[:login].present?}" %>
         </div>
 
         <div class="form-group">
           <%= f.label :avatar %>
-          <%= f.file_field :avatar, class: "form-control-file" %>
+          <%= f.file_field :avatar, class: "form-control-file", id: "file" %>
+          <p>Available resolution: jpg, jpeg, png. </p>
         </div>
 
         <div class="form-group">
           <%= f.label :email %>
-          <%= f.email_field :email, class: "form-control" %>
+          <%= f.email_field :email, class: "form-control #{'is-invalid' if @user.errors[:email].present?}" %>
         </div>
 
         <div class="form-group">
           <%= f.label :password %>
-          <%= f.password_field :password, class: "form-control" %>
+          <%= f.password_field :password, class: "form-control #{'is-invalid' if @user.errors[:password].present?}" %>
         </div>
 
         <div class="form-group">
           <%= f.label :password_confirmation, "Password confirm" %>
-          <%= f.password_field :password_confirmation, class: "form-control" %>
+          <%= f.password_field :password_confirmation, class: "form-control #{'is-invalid' if @user.errors[:password_confirmation]
+              .present?}" %>
         </div>
 
-        <%= f.submit "Create my account", class: "btn btn-primary" %>
+        <%= recaptcha_tags %>
+        <br>
 
+        <%= f.submit "Create my account", class: "btn btn-primary" %>
 
     <% end %>
   </div>
 </div>
+
 
 

@@ -1,0 +1,36 @@
+<h1 style="margin-top: 100px">Topics for discussion</h1>
+
+<div class="row">
+  <div class="col-8">
+    <p><%= image_tag "exclamation_mark_PNG37.png", height: "24px", width: "24px" %>
+      Hi. We are glad to see you on our forum. Please read the <%= link_to "rules", rules_index_path %>
+      if you haven't already. You don't need to register to view questions. If you want to ask a question on
+      a particular topic, please follow the link to <%= link_to "register", new_user_path %>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-9" >
+<ul style="margin-top: 100px">
+  <% Category.roots.each do |root| %>
+    <%= link_to category_path(root.id), class: "category_underline_none", style: "text-decoration: none" do %>
+      <li>
+      <div class="text-center card category" style="width: 400px; margin-top: 20px">
+        <%= image_tag "#{root.avatar}", class: "img-thumbnail" %>
+          <p class="card-text"><%= root.name %></p>
+      </div>
+      <%= render "shared/category_children", category: root.descendants.arrange %>
+    </li>
+    <% end %>
+  <% end %>
+</ul>
+</div>
+<!--  облако тегов-->
+<!--  <div class="col-3 text-center">-->
+<!--    <h3>Top 5 Tags that occur most often:</h3>-->
+    <%# tag_cloud(Tag.counts, %w{tag1 tag2 tag3 tag4 tag5}) do |tag, css_class| %>
+      <%#= link_to tag.name, tag_path(tag.id), class: css_class %>
+    <%# end %>
+<!--  </div>-->
+</div>

@@ -1,8 +1,9 @@
 <nav class="head_navbar navbar navbar-expand-lg row" >
 
-  <div class="col-3">
+  <div class="col-3 text-center">
     <h3><%= image_tag("ruby-clip-art-20.png", width: "36", height: "36", alt: "Ruby logo") %>
-      <u>Forum Ruby developers</u></h3>
+      <u style="color: black">Forum Ruby developers</u>
+    </h3>
   </div>
 
    <div class="collapse navbar-collapse col-9 justify-content-end" id="navbarNavDropdown" >
@@ -16,7 +17,8 @@
          <a class="nav-link" href="#">Rules <%= image_tag('text-box.png', width: "24", height: "24") %></a>
        </li>
        <li class="nav-item" >
-         <a class="nav-link" href="#">Topics <%= image_tag('baseline_wysiwyg_black_48dp.png', width: "24", height:
+         <a class="nav-link" href="<%= categories_path %>">Topics <%= image_tag('baseline_wysiwyg_black_48dp.png', width: "24",
+                                                                  height:
              "24")
          %></a>
        </li>
@@ -25,15 +27,11 @@
            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Account <%= image_tag('account.png', width: "24", height: "24")
            %></a>
            <ul class="dropdown-menu dropdown-menu-right" style="text-align: right;">
-             <li><a href="<%= current_user %>" class="dropdown-item">Profile<%= image_tag('account-edit.png', width:
-                 "24",
-                                                                                height:
-                 "24"
-                                                             ) %></a></li>
-             <li><a href="#" class="dropdown-item">My topics<%= image_tag('text-box.png', width: "24", height: "24") %></a></li>
+             <li><a href="<%= user_path(current_user[:id]) %>" class="dropdown-item">Profile
+               <%= image_tag('account-edit.png', width: "24", height: "24")%></a></li>
              <div class="dropdown-divider"></div>
              <li>
-               <%= link_to logout_path, method: "delete", class: "dropdown-item" do %>Log out
+               <%= link_to logout_path, method: "delete", class: "dropdown-item", data: {confirm: 'Are you sure?'} do %>Log out
                  <%= image_tag "account-cancel (1).png", width: "24", height: "24" %>
                <% end %>
              </li>
@@ -49,6 +47,21 @@
            %></a>
          </li>
        <% end %>
+
+       <% if logged_in? && current_user.admin? %>
+       <li class="dropdown nav-item">
+         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
+         <ul class="dropdown-menu dropdown-menu-right" style="text-align: center;">
+          <li>
+            <%= link_to "Users", admin_users_path, class: "dropdown-item" %>
+          </li>
+           <li>
+             <%= link_to "Topics", admin_categories_admin_path, class: "dropdown-item" %>
+           </li>
+         </ul>
+       </li>
+       <% end %>
+
      </ul>
    </div>
  </nav>

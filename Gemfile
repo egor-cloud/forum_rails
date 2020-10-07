@@ -10,21 +10,54 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
-# gem 'redis', '~> 4.0'
 # gem 'bcrypt', '~> 3.1.7'
-gem 'bootstrap'
 gem 'font-awesome-rails'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bcrypt'
-gem 'pry-byebug'
+
+#фронтенд
+# gem 'bootstrap'
+gem 'will_paginate-bootstrap4'
+gem 'will_paginate'
+
+#sidekiq
+gem 'redis'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
+
+#Картинки
+gem 'carrierwave'
+gem 'mini_magick'
+
+#captcha
+gem "recaptcha", require: "recaptcha/rails"
+
+#переменные окружения. Позволяет создавать переменные окружения непосредственно в проекте rails и экспортировать их
+gem 'dotenv-rails', :groups => [:development, :test]
+
+# Вложенное дерево категорий
+gem 'ancestry'
+
+#лайки
+gem 'acts_as_votable'
 
 group :development, :test do
+  #Почта
+  # MailCatcher запускает супер простой SMTP-сервер, который перехватывает любое отправленное ему сообщение для
+  # отображения в веб-интерфейсе. Запустите mailcatcher, настройте свое любимое приложение на доставку на
+  # smtp: //127.0.0.1: 1025 вместо SMTP-сервера по умолчанию, затем проверьте http://127.0.0.1:1080,
+  # чтобы увидеть почту, которая пришла на данный момент.
+  gem 'mailcatcher'
   gem 'faker'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
 end
 
 group :development do
+  gem 'pry-rails'
+  gem 'pry-byebug'
+  gem 'pry-doc'
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '~> 3.2'
   gem 'spring'

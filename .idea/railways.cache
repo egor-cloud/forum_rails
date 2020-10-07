@@ -1,16 +1,49 @@
                                Prefix Verb   URI Pattern                                                                              Controller#Action
+                          sidekiq_web        /sidekiq                                                                                 Sidekiq::Web
                                  root GET    /                                                                                        main#index
-                                users GET    /users(.:format)                                                                         users#index
-                                      POST   /users(.:format)                                                                         users#create
+                          rules_index GET    /rules/index(.:format)                                                                   rules#index
+                                login GET    /login(.:format)                                                                         sessions#new
+                                      POST   /login(.:format)                                                                         sessions#create
+                               logout DELETE /logout(.:format)                                                                        sessions#destroy
+              edit_account_activation GET    /account_activations/:id/edit(.:format)                                                  account_activations#edit
+                      password_resets POST   /password_resets(.:format)                                                               password_resets#create
+                   new_password_reset GET    /password_resets/new(.:format)                                                           password_resets#new
+                  edit_password_reset GET    /password_resets/:id/edit(.:format)                                                      password_resets#edit
+                       password_reset PATCH  /password_resets/:id(.:format)                                                           password_resets#update
+                                      PUT    /password_resets/:id(.:format)                                                           password_resets#update
+                                  tag GET    /tags/:id(.:format)                                                                      tags#show
+                             comments POST   /comments(.:format)                                                                      comments#create
+                              comment DELETE /comments/:id(.:format)                                                                  comments#destroy
+                                users POST   /users(.:format)                                                                         users#create
                              new_user GET    /users/new(.:format)                                                                     users#new
                             edit_user GET    /users/:id/edit(.:format)                                                                users#edit
                                  user GET    /users/:id(.:format)                                                                     users#show
                                       PATCH  /users/:id(.:format)                                                                     users#update
                                       PUT    /users/:id(.:format)                                                                     users#update
-                                      DELETE /users/:id(.:format)                                                                     users#destroy
-                                login GET    /login(.:format)                                                                         sessions#new
-                                      POST   /login(.:format)                                                                         sessions#create
-                               logout DELETE /logout(.:format)                                                                        sessions#destroy
+                   like_category_post PUT    /categories/:category_id/posts/:id/like(.:format)                                        posts#upvote
+                deslike_category_post PUT    /categories/:category_id/posts/:id/deslike(.:format)                                     posts#downvote
+            like_answer_category_post PUT    /categories/:category_id/posts/:id/like_answer(.:format)                                 answers#upvote
+         deslike_answer_category_post PUT    /categories/:category_id/posts/:id/deslike_answer(.:format)                              answers#downvote
+                category_post_answers POST   /categories/:category_id/posts/:post_id/answers(.:format)                                answers#create
+             new_category_post_answer GET    /categories/:category_id/posts/:post_id/answers/new(.:format)                            answers#new
+                 category_post_answer DELETE /categories/:category_id/posts/:post_id/answers/:id(.:format)                            answers#destroy
+                       category_posts POST   /categories/:category_id/posts(.:format)                                                 posts#create
+                    new_category_post GET    /categories/:category_id/posts/new(.:format)                                             posts#new
+                   edit_category_post GET    /categories/:category_id/posts/:id/edit(.:format)                                        posts#edit
+                        category_post GET    /categories/:category_id/posts/:id(.:format)                                             posts#show
+                                      PATCH  /categories/:category_id/posts/:id(.:format)                                             posts#update
+                                      PUT    /categories/:category_id/posts/:id(.:format)                                             posts#update
+                           categories GET    /categories(.:format)                                                                    categories#index
+                             category GET    /categories/:id(.:format)                                                                categories#show
+                          admin_users GET    /admin/users(.:format)                                                                   admin/users#index
+                           admin_user DELETE /admin/users/:id(.:format)                                                               admin/users#destroy
+                     admin_categories POST   /admin/categories(.:format)                                                              admin/categories#create
+                   new_admin_category GET    /admin/categories/new(.:format)                                                          admin/categories#new
+                  edit_admin_category GET    /admin/categories/:id/edit(.:format)                                                     admin/categories#edit
+                       admin_category PATCH  /admin/categories/:id(.:format)                                                          admin/categories#update
+                                      PUT    /admin/categories/:id(.:format)                                                          admin/categories#update
+                                      DELETE /admin/categories/:id(.:format)                                                          admin/categories#destroy
+               admin_categories_admin GET    /admin/categories_admin(.:format)                                                        admin/categories#index
         rails_postmark_inbound_emails POST   /rails/action_mailbox/postmark/inbound_emails(.:format)                                  action_mailbox/ingresses/postmark/inbound_emails#create
            rails_relay_inbound_emails POST   /rails/action_mailbox/relay/inbound_emails(.:format)                                     action_mailbox/ingresses/relay/inbound_emails#create
         rails_sendgrid_inbound_emails POST   /rails/action_mailbox/sendgrid/inbound_emails(.:format)                                  action_mailbox/ingresses/sendgrid/inbound_emails#create

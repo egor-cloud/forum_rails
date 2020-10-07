@@ -1,0 +1,42 @@
+<h3 style="margin: 100px">All questions related to the tag
+  <span class="badge badge-secondary"><%= @tag.name %>:</span>
+</h3>
+
+<%= will_paginate @posts %>
+<% @posts.each do |post| %>
+  <%# if post.category_id == @category.id %>
+
+    <div class="row" style="border: #ececec solid 2px; border-radius: 6px">
+
+      <div class="col-2 text-center " style=" margin-right: 0; border: 0; border-right: #f5f5f5 1px solid">
+        <p><span>login: </span><%= post.user.login %></p>
+        <%= image_tag "#{post.user.avatar.versions[:mini_thumb]}", class: "img-thumbnail" %>
+        <%= image_tag ("not_avatar50_50.png"), class: "img-thumbnail" unless post.user.avatar? %>
+      </div>
+
+      <div class="col-10" style=" margin-left: 0; padding: 0; ">
+        <div class="card" style="border: 0">
+          <h5 class="card-header"><%= unfrozen_time post.created_at %></h5>
+          <div class="card-body">
+            <h5 class="card-title"><span>Question: </span><%= post.header %></h5>
+            <div class="row">
+              <div class="col">
+
+              </div>
+              <div class="col text-right">
+                <a href="<%= category_post_path(post.category_id, post.id) %>" class="btn btn-primary"
+                   style="text-align:right">Go over</a>
+              </div>
+            </div>
+            <div>
+              <span>Tagging: </span><%= raw post.tags.map{ |t| link_to t.name, tag_path(t.id), class: "badge badge-secondary" }.join(" ") %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+  <%# end %>
+<% end %>
+<%= will_paginate @posts %>

@@ -1,0 +1,44 @@
+<h1 style="margin-top: 100px">All users:</h1>
+
+<%= will_paginate %>
+
+<table class="table table-bordered table-inverse">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>email</th>
+    <th>login</th>
+    <th>avatar</th>
+    <th>rating</th>
+    <th>activate?</th>
+    <th>lock?</th>
+    <th>locked</th>
+    <th>delete</th>
+  </tr>
+  </thead>
+
+  <% @users.each do |user| %>
+      <tbody>
+      <tr>
+        <th scope="row"><%= "#{user.id}" %></th>
+        <td><%= "#{user.email}" %></td>
+        <td><%= "#{user.login}" %></td>
+        <td>
+          <% if user.avatar? %>
+            <%= image_tag "#{user.avatar.versions[:preview]}" %>
+          <% else %>
+            <%= image_tag("not_avatar50_50.png") %>
+          <% end %>
+        </td>
+        <td>0</td>
+        <td><%= "#{user.activated}" %></td>
+        <td>0</td>
+        <td>locked</td>
+        <td><%= link_to "delete", admin_user_path(user), method: :delete, data: { confirm: "You sure?" } %></td>
+      <tbody>
+      <tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate %>

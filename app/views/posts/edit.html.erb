@@ -1,0 +1,46 @@
+<h1 style="margin-top: 100px">Edit question</h1>
+<div class="row">
+  <div class="col-12">
+<!--    Явная передача экшена тк маршрута не существует для обновления. Явная передача метода rest архитектуры иначе ryby-->
+<!--    on rails пошлет нас -->
+    <%= form_for @post, url: {action: 'update'}, method: :put, multipart: true, data_remote: false do |f| %>
+
+      <div class="form-group">
+        <%= f.label :header %>
+        <%= f.text_area :header, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <p>
+          <%= image_tag "exclamation_mark_PNG37.png", height: "24px", width: "24px" %>
+          Pls try to describe your question without inserting a picture
+        </p>
+        <%= f.label :body %>
+        <%#= f.text_area :body, class: "form-control", style: "min-height: 400px; height: auto" %>
+        <%= f.rich_text_area :body, class: "form-control", style: "min-height: 300px; height: auto" %>
+      </div>
+
+      <div class="form-group">
+        <p>
+          <%= image_tag "exclamation_mark_PNG37.png", height: "24px", width: "24px" %>
+          No more than 10 tags. Enter separated by a space
+        </p>
+        <%= f.label :tags %>
+        <%= f.text_field :all_tags, class: "form-control" %>
+      </div>
+
+      <%= f.submit "update question", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+
+  let trix = document.querySelector("#post_body")
+  trix.addEventListener("trix-file-accept", function (event){
+    event.preventDefault()
+    console.log("hello")
+  })
+
+</script>

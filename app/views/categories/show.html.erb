@@ -1,0 +1,28 @@
+<div class="row" style="margin-top: 100px">
+  <div class="col-12">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <% @category.path.each do |cat| %>
+          <% if breadcrumb_category_root?(@category.id, cat.id) %>
+            <%= content_tag :li, class: "breadcrumb-item active", 'aria-current': "page" do %>
+              <%= cat.name %>
+            <% end %>
+          <% else %>
+            <%= content_tag :li, class: "breadcrumb-item" do %>
+              <%= link_to cat.name, category_path(cat) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ol>
+    </nav>
+    <%= link_to "Create a question", new_category_post_path(@category.id), class: "btn btn-primary" %>
+  </div>
+</div>
+
+<!--<div class="text-center card category" style="width: 400px; margin-top: 20px">-->
+  <%#= image_tag "#{root.avatar}", class: "img-thumbnail" %>
+<!--  <p class="card-text"><%#= root.name %></p>-->
+<!--</div>-->
+
+<%= render "shared/all_posts_in_the_category", locale: @category %>
+

@@ -1,2 +1,39 @@
-<h1>User#edit</h1>
-<p>Find me in app/views/user/edit.html.erb</p>
+<h1 style="margin-top: 100px">Edit</h1>
+<div class="row">
+  <div class="col-12">
+    <%= form_for @user, multipart: true, data_remote: false do |f| %>
+      <%= render "shared/error_messages_user" %>
+
+      <div class="form-group">
+        <%= f.label :login %>
+        <%= f.text_field :login, class: "form-control #{'is-invalid' if @user.errors.messages[:login].present?} " %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :avatar %>
+        <%= f.file_field :avatar, class: "form-control-file " %>
+        <p>Available resolution: jpg, jpeg, png. </p>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: "form-control #{'is-invalid' if @user.errors[:email].present?} " %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: "form-control #{'is-invalid' if @user.errors[:password].present?} " %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Password confirm" %>
+        <%= f.password_field :password_confirmation, class: "form-control #{'is-invalid' if @user
+            .errors[:password_confirmation].present?} " %>
+      </div>
+
+      <%= f.submit "Edit my account", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
+

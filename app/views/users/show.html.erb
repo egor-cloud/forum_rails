@@ -1,11 +1,34 @@
-<h1>User#show</h1>
-<p>Find me in app/views/user/show.html.erb</p>
-<p>Login: <%= @user.login %></p>
-<p>Email: <%= @user.email %></p>
-<div>
-<p>Avatar: </p><img src="<%= @user.avatar %>" alt="your avatar" class="rounded-circle" style="width: 300px; height:
-    300px">
+<h1 style="margin-top: 100px">My profile: </h1>
+<div class="row">
+  <div class="col-6">
+    <p>Login: <span style="font-size: 24px;"><%= @user.login %></span></p>
+    <div>
+      <% if @user.avatar? %>
+        <%= image_tag "#{@user.avatar.versions[:thumb]}", class: "img-thumbnail" %>
+      <% else %>
+        <%= image_tag ("not_avatar300_300.png"), class: "img-thumbnail" %>
+      <% end %>
+      <%#= image_tag ("not_avatar300_300.png"), class: "img-thumbnail" unless @user.avatar? %>
+      <%#= image_tag "#{@user.avatar.versions[:thumb] if @user.avatar?}", class: "img-thumbnail" %>
+    </div>
+
+    <br>
+
+    <%= link_to "Edit profile", edit_user_path(current_user), class: "btn btn-primary" %>
+  </div>
+  <div class="col-6">
+    <h3>Your question:</h3>
+      <%# binding.pry %>
+    <% your_question.each do |question| %>
+     <p>
+       <%= link_to "#{question.header}", category_post_path(question.category_id, question.id) %>,
+       created ( <%= unfrozen_time(question.created_at) %>)
+     </p>
+  <% end %>
+    Вывести Select категорий
+    Вывести все вопросы пользователя
+    Вывести уведомления
+    вывести рейтинг
+  </div>
 </div>
-<p>Rating: ...</p>
-<p>My Topics: ...</p>
 

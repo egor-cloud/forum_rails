@@ -1,0 +1,43 @@
+<h1 style="margin-top: 100px">All Categories:</h1>
+
+<div>
+  <%= link_to "Create category", new_admin_category_path, class: "btn btn-primary" %>
+</div>
+<br>
+
+<%= will_paginate %>
+
+<table class="table table-bordered table-inverse">
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>image</th>
+    <th>ancestry</th>
+    <th>edit</th>
+    <th>delete</th>
+  </tr>
+  </thead>
+
+  <% @categories.each do |category| %>
+      <tbody>
+      <tr>
+        <th scope="row"><%= "#{category.id}" %></th>
+        <td><%= "#{category.name}" %></td>
+        <td>
+          <% if category.avatar? %>
+            <%= image_tag "#{category.avatar.versions[:preview]}" %>
+          <% else %>
+            <%= image_tag("not_avatar50_50.png") %>
+          <% end %>
+        </td>
+        <td><%= category.path.map(&:name).join("/") %></td>
+        <td><%= link_to "edit", edit_admin_category_path(category) %></td>
+        <td><%= link_to "delete", admin_category_path(category), method: :delete, data: { confirm: "You sure?" } %></td>
+    <tbody>
+      <tr>
+  <% end %>
+
+</table>
+
+<%= will_paginate %>

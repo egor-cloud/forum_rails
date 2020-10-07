@@ -17,7 +17,7 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
@@ -26,6 +26,15 @@ module SessionsHelper
 
   def logged_in?
     !current_user.nil?
+  end
+
+  #Если пользователь не аутенфицирован он может начать редактировать себя что неприемлимо
+  def logged_in_user
+    if !logged_in?
+      store_location
+      flash[:danger] = "Pls authenticate"
+      redirect_to login_url
+    end
   end
 
   def forget(user)
@@ -40,6 +49,31 @@ module SessionsHelper
     @current_user = nil
   end
 
+  def current_user?(user)
+    user == current_user
+  end
 
+  # Перенаправить по сохраненному адресу или на страницу по умолчанию.
+  def redirect_back_or(user)
+    if user.admin?
+      flash[:success] = "Hello admin"
+    else
+      flash[:success] = "Hello #{user.login}"
+    end
+    redirect_to(session[:save_url] || user)
+    session.delete(:save_url)
+  end
+
+  # Запоминает URL.
+  def store_location
+    session[:save_url] = request.url if request.get?
+  end
+
+  def admin_user
+    unless logged_in? && current_user.admin == true
+      redirect_to(root_url)
+    end
+  end
 
 end
+

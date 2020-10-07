@@ -1,0 +1,6 @@
+var like_size = document.querySelector(".like-size")
+var deslike_size = document.querySelector(".deslike-size")
+
+  like_size.innerHTML = <%= @post.get_upvotes.size %>
+  deslike_size.innerHTML = <%= @post.get_downvotes.size %>
+
