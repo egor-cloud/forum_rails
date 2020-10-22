@@ -1,0 +1,30 @@
+<% comments.each do |parent, children| %>
+  <br>
+  <div class="col" data-comment="<%= parent.id %>">
+    <div class="row">
+      <div class="col-2">
+        <p class="comment-p" style="margin-bottom: 0">login: <%= parent.user.login %></p>
+        <%= image_tag "#{parent.user.avatar.versions[:preview]}", class: "img-thumbnail" %>
+      </div>
+      <div class="col-6 align-self-end" style="border: #DEDEE0 solid 1px; border-radius: 6px; word-break: break-all">
+        <p class="comment-p"><%= parent.body %></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 offset-2">
+        <span class="comment-p">answered: <%= root_comment.user.login %></span>
+      </div>
+      <div class="col-2 offset-1">
+        <%= link_to "response", "#", class: "add_comment_to_comment comment-p",
+                    data: {comment: parent.id, comment_to_answer: answer.id} unless current_user.id == parent.user.id %>
+      </div>
+    </div>
+  </div>
+  <br>
+
+<%= render "shared/comments_children", {comments: children, root_comment: parent, answer:answer} if children.present? %>
+  <%= javascript_tag do %>
+    var parent_id = <%= j root_comment.id %>
+  <% end %>
+<% end %>

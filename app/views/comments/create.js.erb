@@ -1,17 +1,8 @@
+var comment = document.querySelector(".containerComment")
+var all_comment = document.querySelector('[data-answer-after="<%= @answer.id %>"]')
 
-  var pagination = document.querySelector(".pagination")
-//  var answer = document.querySelector('[data-answer-after="<%= @answer.id %>"]')
-  var comment = document.querySelector(".containerComment")
-  var all_comment = document.querySelector('[data-answer-container="<%= @answer.id %>"]')
+comment.parentNode.removeChild(comment)
 
+all_comment.insertAdjacentHTML("afterend", "<%= j render partial: "shared/add_comment" %>")
 
-  comment.parentNode.removeChild(comment)
-
-
-  console.log(all_comment)
-  if(all_comment.querySelector(".pagination") != null){
-    all_comment.querySelector(".pagination").insertAdjacentHTML("afterend", "<%= j render partial: "shared/add_comment" %>")
-  }else{
-    all_comment.insertAdjacentHTML("afterbegin", "<%= j render partial: "shared/add_comment" %>")
-  }
 

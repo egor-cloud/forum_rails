@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :tags, only: [:show]
-  resources :comments, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy] do
+    member do
+      post "create_children" => "comments#create_children_comment"
+    end
+  end
 
   resources :users, except: [:index, :destroy]
 

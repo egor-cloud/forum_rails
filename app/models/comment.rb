@@ -4,6 +4,7 @@ class Comment < ApplicationRecord
   has_ancestry
 
   scope :all_comment_to_answer, ->(answer_id) do
-    self.where("answer_id = ?", answer_id).order(created_at: :desc)
+    self.where("answer_id = ?", answer_id)
   end
+
 end

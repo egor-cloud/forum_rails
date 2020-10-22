@@ -1,10 +1,12 @@
+<br>
+<br>
 <div class="container" data-comment="<%= @comment.id %>">
   <div class="row">
   <div class="col-2">
     <p class="comment-p" style="margin-bottom: 0">login: <%= @comment.user.login %></p>
     <%= image_tag "#{@comment.user.avatar.versions[:preview]}", class: "img-thumbnail" %>
   </div>
-  <div class="col-6 align-self-end" style="border: #DEDEE0 solid 1px; border-radius: 6px">
+  <div class="col-6 align-self-end" style="border: #DEDEE0 solid 1px; border-radius: 6px; word-break: break-all">
     <p class="comment-p"><%= @comment.body %></p>
   </div>
 </div>
@@ -14,8 +16,7 @@
     <span class="comment-p">answered: <%= @answer.user.login %></span>
   </div>
   <div class="col-2 offset-1">
-    <%= link_to "response", "#", class: "comment-p" %>
+
   </div>
 </div>
 </div>
-<br>

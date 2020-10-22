@@ -42,6 +42,9 @@ gem 'ancestry'
 #лайки
 gem 'acts_as_votable'
 
+#доступ в js к обьектам ruby
+gem 'gon'
+
 group :development, :test do
   #Почта
   # MailCatcher запускает супер простой SMTP-сервер, который перехватывает любое отправленное ему сообщение для
@@ -52,6 +55,8 @@ group :development, :test do
   gem 'faker'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
+  #Красивые выводы rspec
+  gem 'fuubar'
 end
 
 group :development do
@@ -66,7 +71,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'database_cleaner'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'

@@ -1,15 +1,14 @@
-<% @comments = Comment.all_comment_to_answer(answer.id).paginate(page: params[:page], per_page: 10) %>
-<%#= will_paginate @comments %>
+<% @comments = Comment.all_comment_to_answer(answer.id) %>
 
-<% @comments.each do |comment| %>
+<% @comments.roots.each do |comment| %>
   <br>
-  <div class="container" data-comment="<%= comment.id %>">
+  <div class="col" data-comment="<%= comment.id %>">
     <div class="row">
     <div class="col-2">
       <p class="comment-p" style="margin-bottom: 0">login: <%= comment.user.login %></p>
       <%= image_tag "#{comment.user.avatar.versions[:preview]}", class: "img-thumbnail" %>
     </div>
-    <div class="col-6 align-self-end" style="border: #DEDEE0 solid 1px; border-radius: 6px">
+    <div class="col-6 align-self-end" style="border: #DEDEE0 solid 1px; border-radius: 6px; word-break: break-all">
       <p class="comment-p"><%= comment.body %></p>
     </div>
   </div>
@@ -19,13 +18,16 @@
       <span class="comment-p">answered: <%= answer.user.login %></span>
     </div>
     <div class="col-2 offset-1">
-      <%= link_to "response", "#", class: "comment-p" %>
+      <%= link_to "response", "#", class: "add_comment_to_comment comment-p",
+                  data: {comment: comment.id, comment_to_answer: answer.id } unless current_user.id == comment.user.id %>
     </div>
   </div>
   </div>
-
   <br>
+
+  <%= render "shared/comments_children", {comments: comment.descendants.arrange, root_comment: comment, answer: answer} %>
+  <%= javascript_tag do %>
+    var parent_id = <%= j comment.id %>
+  <% end %>
+
 <% end %>
-
-<%#= will_paginate @comments %>
-

@@ -12,6 +12,7 @@
                        password_reset PATCH  /password_resets/:id(.:format)                                                           password_resets#update
                                       PUT    /password_resets/:id(.:format)                                                           password_resets#update
                                   tag GET    /tags/:id(.:format)                                                                      tags#show
+              create_children_comment POST   /comments/:id/create_children(.:format)                                                  comments#create_children_comment
                              comments POST   /comments(.:format)                                                                      comments#create
                               comment DELETE /comments/:id(.:format)                                                                  comments#destroy
                                 users POST   /users(.:format)                                                                         users#create

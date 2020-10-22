@@ -66,9 +66,9 @@
                 <p>Raiting: </p>
               </div>
               <div class="col-6 text-right">
+
                 <%= link_to 'Delete', category_post_answer_path(params[:category_id], @post.id, answer.id), method:
-                    :delete, data: { confirm: "Are you sure?" }, class: "text-right" if answer.user_id ==
-                    current_user.id %>
+                    :delete, data: { confirm: "Are you sure?" }, class: "text-right" unless answer.user_id == current_user.id %>
               </div>
             </div>
             <div class="row">
@@ -100,9 +100,11 @@
           </div>
         </div>
         <br>
-        <div class="container all-comments-container" data-answer-container="<%= answer.id %>">
-          <%= render partial: "shared/all_comment", locals: { answer: answer }  %>
-        </div>
+          <div class="row all-comments-container" data-answer-container="<%= answer.id %>">
+            <div class="col">
+              <%= render partial: "shared/all_comment", locals: { answer: answer }  %>
+            </div>
+          </div>
       <% end %>
     <% else %>
       <%= content_tag :h3, "No answers yet", class: "text-center", style: "margin: 50px 0" %>
@@ -110,80 +112,9 @@
   </div>
 </div>
 
-<script>
+<%= javascript_pack_tag 'comment', 'data-turbolinks-track': 'reload' %>
 
-  document.addEventListener("turbolinks:load", () => {
-
-    let comment_buttons = []
-
-    function blabla(){
-      return
-    }
-
-    function is_the_a_comment(){
-      if(document.querySelector("#new_comment") != null && document.querySelector(".containerComment") != null ){
-        const containerComment = document.querySelector(".containerComment")
-        containerComment.parentNode.removeChild(containerComment)
-        // el.setAttribute("disabled", "false")
-      }else{
-        blabla()
-      }
-    }
-
-    const el = document.querySelectorAll("[data-answer]")
-
-    if(el.length > 0){
-      for(let i of el){
-        i.onclick = function(e){
-          e.preventDefault()
-          let dataButton = e.target.getAttribute('data-answer')
-          let dataAnswerAfter = e.target.parentElement.parentElement.parentElement.parentElement
-          is_the_a_comment()
-          let container = document.createElement('div');
-          container.classList.add("container")
-          container.classList.add("containerComment")
-          // Для разнообразия добавим скрытые инпуты с id user и post id, мы же хакеры
-          container.insertAdjacentHTML("afterbegin", `
-        <div class='row justify-content-center' style='margin-top: 50px'>
-          <div class='col-9'>
-            <%= form_with model: Comment.new, url: comments_path, method: :post, id: "new_comment" do |f| %>
-              <div class='form-group'>
-                <%= f.label :Your_comment %>
-                <%= f.text_area :body, class: 'form-control', style: 'max-height: 300px' %>
-              </div>
-              <%= f.hidden_field :user_id, value: current_user.id %>
-              <%= f.hidden_field :answer_id, value: "${dataButton}" %>
-              <%= f.hidden_field :category_id, value: params[:category_id] %>
-              <div class='form-group text-right'>
-                <%= f.submit 'comment', class: 'btn btn-primary' %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      `)
-          dataAnswerAfter.appendChild(container);
-        }
-      }
-    }
-
-    document.onclick = function (e) {
-
-      if(document.querySelector("#new_comment") != null && document.querySelector(".containerComment") != null ){
-        const comment = document.querySelector("#new_comment")
-        const containerComment = document.querySelector(".containerComment")
-        el.forEach((element) => {
-          if (element.contains(e.target) == true){
-            comment_buttons = element
-          }
-        })
-        if (!comment.contains(e.target) && !comment_buttons.contains(e.target)) {
-          containerComment.parentNode.removeChild(containerComment)
-          return true
-        }
-      }else{
-        blabla()
-      }
-    }
-  });
-
-</script>
+<%= javascript_tag do %>
+  var user_id = <%= j current_user.id %>
+  var category_id = <%= j params[:category_id] %>
+<% end %>

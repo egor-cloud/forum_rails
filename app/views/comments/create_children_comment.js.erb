@@ -1,0 +1,8 @@
+var comment = document.querySelector(".containerComment")
+var parent_comment = document.querySelector('[data-comment="<%= @comment.parent_id %>"]')
+console.log(parent_comment)
+
+comment.parentNode.removeChild(comment)
+
+parent_comment.insertAdjacentHTML("afterend", "<%= j render partial: "shared/add_comment_children" %>")
+
